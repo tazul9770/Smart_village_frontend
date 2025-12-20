@@ -1,8 +1,10 @@
+import Hero from "./pages/Hero";
+
 const Home = () => {
     return (
-        <div>
-            
-        </div>
+        <>
+            <Hero/>
+        </>
     );
 };
 
