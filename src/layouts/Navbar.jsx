@@ -8,7 +8,7 @@ const Navbar = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem("authtoken");
+  const isLoggedIn = localStorage.getItem("authtokn");
 
   const navLinks = [
     { name: "Home", path: "/" },
