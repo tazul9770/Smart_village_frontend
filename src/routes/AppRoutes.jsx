@@ -1,6 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
 import Home from '../Home';
+import Login from '../registration/Login';
+import Dashboard from '../pages/Dashboard';
+import PrivateRoute from '../PrivateRoute';
+import Register from '../registration/Register';
+import ActivateAccount from '../registration/ActivateAccount';
+
 
 const AppRoutes = () => {
     return (
@@ -8,7 +14,17 @@ const AppRoutes = () => {
             <Routes>
                 <Route element={<MainLayout/>}>
                     <Route path='/' element={<Home/>}/>
+                    <Route path='login' element={<Login/>}/>
+                    <Route path='register' element={<Register/>}/>
+                    <Route path='activate/:uid/:token' element={<ActivateAccount/>}/>
                 </Route>
+
+                <Route path="dashboard" element={
+                    <PrivateRoute>
+                        <Dashboard/>
+                    </PrivateRoute>}>
+                </Route>
+
             </Routes>
         </div>
     );

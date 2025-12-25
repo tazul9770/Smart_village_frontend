@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { IoNotificationsOutline } from "react-icons/io5";
+import useAuthContext from "../hooks/useAuthContext";
 
 const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem("authtokn");
+  const {user, logoutUser} = useAuthContext();
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -18,8 +19,8 @@ const Navbar = () => {
   ];
 
   const logout = () => {
-    localStorage.removeItem("authtoken");
-    navigate("/login");
+    logoutUser()
+    navigate("/");
   };
 
   return (
@@ -43,7 +44,7 @@ const Navbar = () => {
             </Link>
           ))}
 
-          {!isLoggedIn ? (
+          {!user ? (
             <div className="flex gap-3">
               <Link
                 to="/login"
@@ -95,7 +96,7 @@ const Navbar = () => {
                   </Link>
                   <button
                     onClick={logout}
-                    className="w-full text-left px-4 py-3 text-red-600 hover:bg-gray-100"
+                    className="w-full text-left px-4 py-3 text-red-600 hover:bg-gray-100 cursor-pointer"
                   >
                     Logout
                   </button>
@@ -107,7 +108,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Button + Notification */}
         <div className="flex items-center gap-4 md:hidden">
-          {isLoggedIn && (
+          {user && (
             <button className="relative p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
               <IoNotificationsOutline className="text-2xl text-gray-700" />
               <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
@@ -139,7 +140,7 @@ const Navbar = () => {
               </Link>
             ))}
 
-            {!isLoggedIn ? (
+            {!user ? (
               <>
                 <Link
                   to="/login"
