@@ -7,19 +7,39 @@ import useAuthContext from "../hooks/useAuthContext";
 const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+
+  // 🔔 Notification state (future API ready)
+  const [notifications, setNotifications] = useState([
+    {
+      id: 1,
+      title: "Your service request was approved",
+      time: "2 min ago",
+      read: false,
+    },
+    {
+      id: 2,
+      title: "New project update available",
+      time: "1 hour ago",
+      read: false,
+    },
+  ]);
+
+  const unreadCount = notifications.filter(n => !n.read).length;
 
   const navigate = useNavigate();
-  const {user, logoutUser} = useAuthContext();
+  const { user, logoutUser } = useAuthContext();
 
   const navLinks = [
     { name: "Home", path: "/" },
+    { name: "VillageDetails", path: "/village_details" },
     { name: "Services", path: "/services" },
     { name: "Projects", path: "/projects" },
     { name: "Contact", path: "/contact" },
   ];
 
   const logout = () => {
-    logoutUser()
+    logoutUser();
     navigate("/");
   };
 
@@ -63,16 +83,65 @@ const Navbar = () => {
             <div className="flex items-center gap-4 relative">
 
               {/* 🔔 Notification */}
-              <button className="relative p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
+              <button
+                onClick={() => {
+                  if (notifications.length > 0) {
+                    setIsNotificationOpen(prev => !prev);
+                    setIsProfileOpen(false);
+                  }
+                }}
+                className="relative p-2 rounded-full hover:bg-gray-100 transition cursor-pointer"
+              >
                 <IoNotificationsOutline className="text-2xl text-gray-700" />
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-                  3
-                </span>
+
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                    {unreadCount}
+                  </span>
+                )}
               </button>
 
-              {/* Profile */}
+              {/* 🔽 Notification Dropdown */}
+              {isNotificationOpen && notifications.length > 0 && (
+                <div className="absolute right-14 top-12 w-80 bg-white rounded-xl shadow-lg overflow-hidden">
+                  <div className="px-4 py-3 font-semibold border-b">
+                    Notifications
+                  </div>
+
+                  <div className="max-h-64 overflow-y-auto">
+                    {notifications.map(notification => (
+                      <div
+                        key={notification.id}
+                        className="px-4 py-3 hover:bg-gray-100 border-b last:border-none"
+                      >
+                        <p className="text-sm text-gray-800">
+                          {notification.title}
+                        </p>
+                        <span className="text-xs text-gray-500">
+                          {notification.time}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      setNotifications([]);
+                      setIsNotificationOpen(false);
+                    }}
+                    className="w-full text-center py-2 text-sm text-green-700 hover:bg-gray-50"
+                  >
+                    Mark all as read
+                  </button>
+                </div>
+              )}
+
+              {/* 👤 Profile */}
               <button
-                onClick={() => setIsProfileOpen(prev => !prev)}
+                onClick={() => {
+                  setIsProfileOpen(prev => !prev);
+                  setIsNotificationOpen(false);
+                }}
                 className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 transition cursor-pointer"
               >
                 <CgProfile className="text-2xl text-gray-700" />
@@ -106,16 +175,26 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Mobile Menu Button + Notification */}
+        {/* Mobile Menu Button */}
         <div className="flex items-center gap-4 md:hidden">
           {user && (
-            <button className="relative p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
+            <button
+              onClick={() => {
+                if (notifications.length > 0) {
+                  setIsNotificationOpen(prev => !prev);
+                }
+              }}
+              className="relative p-2 rounded-full hover:bg-gray-100 transition cursor-pointer"
+            >
               <IoNotificationsOutline className="text-2xl text-gray-700" />
-              <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-                3
-              </span>
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                  {unreadCount}
+                </span>
+              )}
             </button>
           )}
+
           <button
             onClick={() => setIsMobileOpen(prev => !prev)}
             className="text-2xl text-gray-700"
@@ -142,18 +221,10 @@ const Navbar = () => {
 
             {!user ? (
               <>
-                <Link
-                  to="/login"
-                  onClick={() => setIsMobileOpen(false)}
-                  className="px-4 py-2 rounded-lg border border-green-700 text-green-700 text-center"
-                >
+                <Link to="/login" onClick={() => setIsMobileOpen(false)}>
                   Login
                 </Link>
-                <Link
-                  to="/register"
-                  onClick={() => setIsMobileOpen(false)}
-                  className="px-4 py-2 rounded-lg bg-green-700 text-white text-center"
-                >
+                <Link to="/register" onClick={() => setIsMobileOpen(false)}>
                   Register
                 </Link>
               </>
@@ -165,10 +236,7 @@ const Navbar = () => {
                 <Link to="/dashboard" onClick={() => setIsMobileOpen(false)}>
                   Dashboard
                 </Link>
-                <button
-                  onClick={logout}
-                  className="text-left text-red-600"
-                >
+                <button onClick={logout} className="text-left text-red-600">
                   Logout
                 </button>
               </>

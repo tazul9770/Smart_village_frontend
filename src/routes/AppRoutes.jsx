@@ -6,6 +6,8 @@ import Dashboard from '../pages/Dashboard';
 import PrivateRoute from '../PrivateRoute';
 import Register from '../registration/Register';
 import ActivateAccount from '../registration/ActivateAccount';
+import DashboardLayout from '../layouts/DashboardLayout';
+import VillageDetails from '../pages/VillageDetails';
 
 
 const AppRoutes = () => {
@@ -14,6 +16,7 @@ const AppRoutes = () => {
             <Routes>
                 <Route element={<MainLayout/>}>
                     <Route path='/' element={<Home/>}/>
+                    <Route path='/village_details' element={<VillageDetails/>}/>
                     <Route path='login' element={<Login/>}/>
                     <Route path='register' element={<Register/>}/>
                     <Route path='activate/:uid/:token' element={<ActivateAccount/>}/>
@@ -21,8 +24,9 @@ const AppRoutes = () => {
 
                 <Route path="dashboard" element={
                     <PrivateRoute>
-                        <Dashboard/>
+                        <DashboardLayout/>
                     </PrivateRoute>}>
+                    <Route index element={<Dashboard/>}/>
                 </Route>
 
             </Routes>
