@@ -7,16 +7,29 @@ import {
   FiClipboard,
 } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
+import useAuthContext from "../hooks/useAuthContext";
 
 const Sidebar = () => {
   const location = useLocation();
 
-  const items = [
+  const {user} = useAuthContext();
+
+  const UserItems = [
+    { to: "/dashboard", icon: FiBarChart2, label: "Dashboard" },
+    { to: "/dashboard/events", icon: FiPackage, label: "Events" },
+    { to: "/dashboard/complain", icon: FiPlusCircle, label: "Complain" },
+    { to: "/dashboard/profession_user", icon: FiPlusCircle, label: "Profession User" },
+  ];
+
+  const AdminItems = [
     { to: "/dashboard", icon: FiBarChart2, label: "Dashboard" },
     { to: "/dashboard/events", icon: FiPackage, label: "Events" },
     { to: "/dashboard/events/add", icon: FiPlusCircle, label: "Add Events" },
     { to: "/dashboard/complain", icon: FiPlusCircle, label: "Complain" },
+    { to: "/dashboard/add_notification", icon: FiPlusCircle, label: "Add Notification" },
   ];
+
+  const items = user.email === 'admin@gmail.com' ? AdminItems : UserItems;
 
   return (
     <>
