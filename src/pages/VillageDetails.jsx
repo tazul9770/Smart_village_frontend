@@ -90,7 +90,7 @@ const VillageDetails = () => {
               {icon: <FiUsers />,label: "Population",value: v.population,},
               {icon: <FiHome />,label: "Houses",value: v.number_of_houses,},
               {icon: <FiBookOpen />,label: "Literacy Rate",value: `${v.literacy_rate}%`,},
-              {icon: <FiMapPin />,label: "Area",value: `${v.area} sq km`,},
+              {icon: <FiMapPin />,label: "Area",value: `${v.area_sq_km} sq km`,},
             ].map((item, i) => (
               <div
                 key={i}

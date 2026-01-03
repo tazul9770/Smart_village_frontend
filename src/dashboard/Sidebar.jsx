@@ -29,7 +29,7 @@ const Sidebar = () => {
     { to: "/dashboard/add_notification", icon: FiPlusCircle, label: "Add Notification" },
   ];
 
-  const items = user.email === 'admin@gmail.com' ? AdminItems : UserItems;
+  const items = user.is_staff ? AdminItems : UserItems;
 
   return (
     <>

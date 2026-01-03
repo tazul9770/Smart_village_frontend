@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuthContext from "../hooks/useAuthContext";
 
 const Navbar = () => {
-  const { logoutUser } = useAuthContext();
+  const { user, logoutUser } = useAuthContext();
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
@@ -49,7 +49,7 @@ const Navbar = () => {
       <div ref={menuRef} className="ml-auto relative">
         <button
           onClick={() => setOpen((prev) => !prev)}
-          className={`flex items-center gap-3 px-2 py-1.5 rounded-full transition
+          className={`flex cursor-pointer items-center gap-3 px-2 py-1.5 rounded-full transition
             ${open ? "bg-gray-100" : "hover:bg-gray-100"}`}
         >
           {/* Avatar */}
@@ -65,7 +65,7 @@ const Navbar = () => {
               User
             </span>
             <span className="text-xs text-gray-500">
-              Admin
+              {user.first_name}
             </span>
           </div>
 
@@ -83,10 +83,10 @@ const Navbar = () => {
             {/* Header */}
             <div className="px-4 py-3 bg-gray-50 border-b">
               <p className="text-sm font-semibold text-gray-800">
-                User
+                {user.first_name}
               </p>
               <p className="text-xs text-gray-500 truncate">
-                admin@phulbazar.com
+                {user.email}
               </p>
             </div>
 
@@ -99,15 +99,6 @@ const Navbar = () => {
               >
                 <FiUser className="text-gray-500" />
                 Profile
-              </Link>
-
-              <Link
-                to="/dashboard"
-                onClick={() => setOpen(false)}
-                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100 transition"
-              >
-                <FiGrid className="text-gray-500" />
-                Dashboard
               </Link>
             </div>
 

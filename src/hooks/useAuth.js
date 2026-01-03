@@ -5,6 +5,8 @@ const useAuth = () => {
 
     const [user, setUser] = useState(null);
     const [errorMsg, setErrorMsg] = useState("");
+    const [successMsg, setSuccessMsg] = useState("")
+
 
     const getToken = () => {
         const token = localStorage.getItem("authTokens");
@@ -44,6 +46,34 @@ const useAuth = () => {
         }
     }
 
+    //update User profile
+    const updateUserProfile = async(data) => {
+      setErrorMsg("")
+      setSuccessMsg("")
+      try{
+        await apiClient.patch('/auth/users/me', data, {
+          headers:{Authorization:`JWT ${authToken?.access}`}
+        })
+        setSuccessMsg("Your profile updated successfully")
+      } catch(err){
+        handleAPIError(err)
+      }
+    }
+
+    //change password
+    const changePassword = async(data) => {
+      setErrorMsg("")
+      setSuccessMsg("")
+      try{
+        await apiClient.post('/auth/users/set_password/', data, {
+          headers:{Authorization:`JWT ${authToken?.access}`}
+        })
+        setSuccessMsg("Your password changed successfully.")
+      }catch(err) {
+        handleAPIError(err)
+      }
+    }
+
     // Login user
     const loginUser = async(userData) => {
         setErrorMsg("");
@@ -80,7 +110,7 @@ const useAuth = () => {
         localStorage.removeItem("authTokens")
     };
 
-    return {user, errorMsg,loginUser, registerUser, logoutUser}
+    return {user, errorMsg, successMsg, loginUser, registerUser, logoutUser, updateUserProfile, changePassword}
 
 }
 export default useAuth;

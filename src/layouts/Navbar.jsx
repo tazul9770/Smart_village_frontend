@@ -79,7 +79,6 @@ const Navbar = () => {
               {/* Profile Dropdown */}
               {isProfileOpen && (
                 <div className="absolute right-0 top-12 w-48 bg-white rounded-xl shadow-lg overflow-hidden z-50">
-                  <Link to="/profile" onClick={() => setIsProfileOpen(false)} className="block px-4 py-3 hover:bg-gray-100">Profile</Link>
                   <Link to="/dashboard" onClick={() => setIsProfileOpen(false)} className="block px-4 py-3 hover:bg-gray-100">Dashboard</Link>
                   <button onClick={logout} className="w-full text-left px-4 py-3 text-red-600 hover:bg-gray-100 cursor-pointer">Logout</button>
                 </div>
@@ -113,7 +112,6 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link to="/profile" onClick={() => setIsMobileOpen(false)}>Profile</Link>
                 <Link to="/dashboard" onClick={() => setIsMobileOpen(false)}>Dashboard</Link>
                 <button onClick={logout} className="text-left text-red-600">Logout</button>
               </>
