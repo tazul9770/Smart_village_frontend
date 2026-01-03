@@ -11,6 +11,7 @@ import VillageDetails from '../pages/VillageDetails';
 import Profile from '../pages/Profile';
 import RequestResetForm from '../profile/RequestResetForm';
 import ResetPasswordPage from '../profile/ResetPasswordPage';
+import Contact from '../pages/Contact';
 
 
 const AppRoutes = () => {
@@ -24,6 +25,7 @@ const AppRoutes = () => {
                     <Route path='register' element={<Register/>}/>
                     <Route path='activate/:uid/:token' element={<ActivateAccount/>}/>
                     <Route path="password/reset/confirm/:uid/:token"element={<ResetPasswordPage />}/>
+                    <Route path='contact' element={<Contact/>}/>
                 </Route>
 
                 {/* private route */}

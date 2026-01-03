@@ -1,3 +1,4 @@
+import Contact from "./pages/Contact";
 import Hero from "./pages/Hero";
 import Impact from "./pages/Impact";
 import Solutions from "./pages/Solution";
@@ -10,6 +11,7 @@ const Home = () => {
             <Solutions/>
             <Impact/>
             <VillageHighlights/>
+            <Contact/>
         </>
     );
 };
