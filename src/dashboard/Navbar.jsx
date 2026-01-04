@@ -3,7 +3,6 @@ import {
   FiMenu,
   FiChevronDown,
   FiUser,
-  FiGrid,
   FiLogOut,
 } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
@@ -35,10 +34,14 @@ const Navbar = () => {
 
   return (
     <header className="h-16 bg-white/80 backdrop-blur-md border-b border-gray-200 flex items-center px-4 sm:px-6 sticky top-0 z-40">
-      {/* Mobile menu */}
-      <button className="lg:hidden mr-3 p-2 rounded-lg hover:bg-gray-100 transition">
+      
+      {/* ✅ MOBILE SIDEBAR TOGGLE (ONLY CHANGE HERE) */}
+      <label
+        htmlFor="sidebar-toggle"
+        className="lg:hidden mr-3 p-2 rounded-lg hover:bg-gray-100 transition cursor-pointer"
+      >
         <FiMenu className="h-5 w-5 text-gray-700" />
-      </button>
+      </label>
 
       {/* Title */}
       <h1 className="text-lg sm:text-xl font-semibold text-gray-800 tracking-tight">
@@ -65,7 +68,7 @@ const Navbar = () => {
               User
             </span>
             <span className="text-xs text-gray-500">
-              {user.first_name}
+              {user?.first_name}
             </span>
           </div>
 
@@ -83,10 +86,10 @@ const Navbar = () => {
             {/* Header */}
             <div className="px-4 py-3 bg-gray-50 border-b">
               <p className="text-sm font-semibold text-gray-800">
-                {user.first_name}
+                {user?.first_name}
               </p>
               <p className="text-xs text-gray-500 truncate">
-                {user.email}
+                {user?.email}
               </p>
             </div>
 

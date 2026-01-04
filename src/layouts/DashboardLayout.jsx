@@ -24,7 +24,7 @@ const DashboardLayout = () => {
 
       {/* ===== FOOTER (after everything) ===== */}
       <footer className="bg-gray-900 text-gray-300 text-center py-4 text-sm">
-        © {new Date().getFullYear()} Your Company Name. All rights reserved.
+        © {new Date().getFullYear()} Smart Village. All rights reserved.
       </footer>
 
     </div>
