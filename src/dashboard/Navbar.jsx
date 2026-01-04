@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import {
   FiMenu,
+  FiX,
   FiChevronDown,
   FiUser,
   FiLogOut,
@@ -13,6 +14,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const menuRef = useRef(null);
 
   const handleLogout = async () => {
@@ -21,6 +23,7 @@ const Navbar = () => {
     navigate("/");
   };
 
+  // close profile dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -32,16 +35,27 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // sidebar toggle handler
+  const toggleSidebar = () => {
+    const checkbox = document.getElementById("sidebar-toggle");
+    checkbox.checked = !checkbox.checked;
+    setSidebarOpen(checkbox.checked);
+  };
+
   return (
     <header className="h-16 bg-white/80 backdrop-blur-md border-b border-gray-200 flex items-center px-4 sm:px-6 sticky top-0 z-40">
       
-      {/* ✅ MOBILE SIDEBAR TOGGLE (ONLY CHANGE HERE) */}
-      <label
-        htmlFor="sidebar-toggle"
-        className="lg:hidden mr-3 p-2 rounded-lg hover:bg-gray-100 transition cursor-pointer"
+      {/* 🔥 MOBILE SIDEBAR TOGGLE */}
+      <button
+        onClick={toggleSidebar}
+        className="lg:hidden mr-3 p-2 rounded-lg hover:bg-gray-100 transition"
       >
-        <FiMenu className="h-5 w-5 text-gray-700" />
-      </label>
+        {sidebarOpen ? (
+          <FiX className="h-5 w-5 text-gray-700" />
+        ) : (
+          <FiMenu className="h-5 w-5 text-gray-700" />
+        )}
+      </button>
 
       {/* Title */}
       <h1 className="text-lg sm:text-xl font-semibold text-gray-800 tracking-tight">
@@ -52,7 +66,7 @@ const Navbar = () => {
       <div ref={menuRef} className="ml-auto relative">
         <button
           onClick={() => setOpen((prev) => !prev)}
-          className={`flex cursor-pointer items-center gap-3 px-2 py-1.5 rounded-full transition
+          className={`flex items-center gap-3 px-2 py-1.5 rounded-full transition
             ${open ? "bg-gray-100" : "hover:bg-gray-100"}`}
         >
           {/* Avatar */}
@@ -83,7 +97,6 @@ const Navbar = () => {
         {/* Dropdown */}
         {open && (
           <div className="absolute right-0 mt-3 w-60 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-            {/* Header */}
             <div className="px-4 py-3 bg-gray-50 border-b">
               <p className="text-sm font-semibold text-gray-800">
                 {user?.first_name}
@@ -93,19 +106,17 @@ const Navbar = () => {
               </p>
             </div>
 
-            {/* Links */}
             <div className="py-2">
               <Link
                 to="/dashboard/profile"
                 onClick={() => setOpen(false)}
                 className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100 transition"
               >
-                <FiUser className="text-gray-500" />
+                <FiUser />
                 Profile
               </Link>
             </div>
 
-            {/* Logout */}
             <div className="border-t bg-gray-50">
               <button
                 onClick={handleLogout}
