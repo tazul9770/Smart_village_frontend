@@ -18,7 +18,6 @@ const Sidebar = () => {
 
   const AdminItems = [
     { to: "/dashboard", icon: FiBarChart2, label: "Dashboard" },
-    { to: "/dashboard/events", icon: FiPackage, label: "Events" },
     { to: "/dashboard/events/add", icon: FiPlusCircle, label: "Add Events" },
     { to: "/dashboard/complain", icon: FiPlusCircle, label: "Complain" },
   ];

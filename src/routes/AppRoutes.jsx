@@ -12,6 +12,8 @@ import Profile from '../pages/Profile';
 import RequestResetForm from '../profile/RequestResetForm';
 import ResetPasswordPage from '../profile/ResetPasswordPage';
 import Contact from '../pages/Contact';
+import Event from '../event/Event';
+import AddEvent from '../event/AddEvent';
 
 
 const AppRoutes = () => {
@@ -26,6 +28,7 @@ const AppRoutes = () => {
                     <Route path='activate/:uid/:token' element={<ActivateAccount/>}/>
                     <Route path="password/reset/confirm/:uid/:token"element={<ResetPasswordPage />}/>
                     <Route path='contact' element={<Contact/>}/>
+                    <Route path='events' element={<Event/>}/>
                 </Route>
 
                 {/* private route */}
@@ -36,6 +39,7 @@ const AppRoutes = () => {
                     <Route index element={<Dashboard/>}/>
                     <Route path='profile' element={<Profile/>}/>
                     <Route path='profile/forgot_password' element={<RequestResetForm/>}/>
+                    <Route path='events/add' element={<AddEvent/>}/>
                 </Route>
 
             </Routes>
