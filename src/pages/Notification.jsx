@@ -93,7 +93,7 @@ const Notification = ({ userId }) => {
                   <p className={`text-sm ${!n.read ? "font-medium text-gray-900" : "text-gray-700"}`}>
                     {n.message}
                   </p>
-                  <span className="text-xs text-gray-500">{n.created_at}</span>
+                  <span className="text-xs text-gray-500">{new Date(n.created_at).toLocaleDateString()}</span>
                 </div>
               ))
             )}

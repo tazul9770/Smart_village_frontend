@@ -14,6 +14,8 @@ import ResetPasswordPage from '../profile/ResetPasswordPage';
 import Contact from '../pages/Contact';
 import Event from '../event/Event';
 import AddEvent from '../event/AddEvent';
+import Notification from '../notification/Notification';
+import AddNotification from '../notification/AddNotification';
 
 
 const AppRoutes = () => {
@@ -40,6 +42,8 @@ const AppRoutes = () => {
                     <Route path='profile' element={<Profile/>}/>
                     <Route path='profile/forgot_password' element={<RequestResetForm/>}/>
                     <Route path='events/add' element={<AddEvent/>}/>
+                    <Route path="notification" element={<Notification/>}/>
+                    <Route path='notification/add' element={<AddNotification/>}/>
                 </Route>
 
             </Routes>

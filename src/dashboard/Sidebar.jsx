@@ -19,7 +19,9 @@ const Sidebar = () => {
   const AdminItems = [
     { to: "/dashboard", icon: FiBarChart2, label: "Dashboard" },
     { to: "/dashboard/events/add", icon: FiPlusCircle, label: "Add Events" },
-    { to: "/dashboard/complain", icon: FiPlusCircle, label: "Complain" },
+    { to: "/dashboard/complain", icon: FiBarChart2, label: "Complain" },
+    { to: "/dashboard/notification", icon: FiBarChart2, label: "Notification" },
+    { to: "/dashboard/notification/add", icon: FiPlusCircle, label: "Add Notification" },
   ];
 
   const items = user?.is_staff ? AdminItems : UserItems;
