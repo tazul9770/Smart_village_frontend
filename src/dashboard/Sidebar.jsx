@@ -14,6 +14,7 @@ const Sidebar = () => {
     { to: "/dashboard", icon: FiBarChart2, label: "Dashboard" },
     { to: "/dashboard/events", icon: FiPackage, label: "Events" },
     { to: "/dashboard/complain", icon: FiPlusCircle, label: "Complain" },
+    { to: "/dashboard/add/profession", icon: FiPlusCircle, label: "Create Profession profile"}
   ];
 
   const AdminItems = [
@@ -22,6 +23,7 @@ const Sidebar = () => {
     { to: "/dashboard/complain", icon: FiBarChart2, label: "Complain" },
     { to: "/dashboard/notification", icon: FiBarChart2, label: "Notification" },
     { to: "/dashboard/notification/add", icon: FiPlusCircle, label: "Add Notification" },
+    { to: "/dashboard/add/profession", icon: FiPlusCircle, label: "Create Profession profile"}
   ];
 
   const items = user?.is_staff ? AdminItems : UserItems;
@@ -82,8 +84,8 @@ const Sidebar = () => {
         </nav>
 
         {/* Footer */}
-        <div className="absolute bottom-0 w-full p-4 text-xs text-gray-400 border-t">
-          © 2025 Smart Village
+        <div className="absolute bottom-0 w-full p-4 bg-gray-900 text-white border-t">
+          admin@gmail.com
         </div>
       </aside>
     </>

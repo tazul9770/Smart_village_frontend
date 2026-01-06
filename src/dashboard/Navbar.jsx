@@ -59,7 +59,7 @@ const Navbar = () => {
 
       {/* Title */}
       <h1 className="text-lg sm:text-xl font-semibold text-gray-800 tracking-tight">
-        Dashboard
+        <Link to="/dashboard">Dashboard</Link>
       </h1>
 
       {/* Profile */}

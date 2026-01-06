@@ -37,9 +37,11 @@ const AddEvent = () => {
       });
 
       setSuccessMsg("Event created successfully.");
+      setTimeout(() => {setSuccessMsg("")}, 3000);
       reset(); // clear form after success
     } catch (err) {
       setErrorMsg(err?.response?.data?.detail || "Failed to create event");
+      setTimeout(() => {setErrorMsg("")}, 3000);
     }
   };
 
