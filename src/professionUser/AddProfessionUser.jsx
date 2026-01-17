@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import apiClient from "../services/api-client";
 
 const AddProfessionUser = () => {
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [hasProfile, setHasProfile] = useState(false); // Track if user already has a profile
 
   const {
     register,
@@ -15,30 +14,6 @@ const AddProfessionUser = () => {
   } = useForm();
 
   const token = JSON.parse(localStorage.getItem("authTokens"));
-
-  // Check if profile exists on component mount
-  useEffect(() => {
-    const checkProfile = async () => {
-      if (!token?.access) return;
-      try {
-        const res = await apiClient.get("/profession_user/", {
-          headers: { Authorization: `JWT ${token.access}` },
-        });
-
-        if (res.data) {
-          setHasProfile(true);
-          setErrorMsg("You already have a profile.");
-        }
-      } catch (err) {
-        // 404 = profile not found → user can create
-        if (err.response?.status !== 404) {
-          console.error(err);
-        }
-      }
-    };
-
-    checkProfile();
-  }, [token]);
 
   const handleAdd = async (data) => {
     setSuccessMsg("");
@@ -67,7 +42,6 @@ const AddProfessionUser = () => {
       });
 
       setSuccessMsg("Your profession user profile created successfully.");
-      setHasProfile(true); // Disable button after creation
       reset();
       setTimeout(() => setSuccessMsg(""), 3000);
     } catch (err) {
@@ -75,14 +49,13 @@ const AddProfessionUser = () => {
 
       const data = err.response?.data;
 
-      // Handle backend errors gracefully
       if (data?.non_field_errors) {
         setErrorMsg(data.non_field_errors.join(" "));
       } else if (data) {
         const fieldMessages = Object.values(data).flat().join(" ");
-        setErrorMsg(fieldMessages || "You already have a profile.");
+        setErrorMsg(fieldMessages);
       } else {
-        setErrorMsg(err.message || "Failed to create profile");
+        setErrorMsg("Failed to create profile");
       }
 
       setTimeout(() => setErrorMsg(""), 3000);
@@ -144,23 +117,33 @@ const AddProfessionUser = () => {
 
         {/* Description */}
         <div>
-          <label className="block font-semibold mb-2 text-gray-700">Description</label>
+          <label className="block font-semibold mb-2 text-gray-700">
+            Description
+          </label>
           <textarea
-            {...register("description", { required: "Description is required" })}
+            {...register("description", {
+              required: "Description is required",
+            })}
             placeholder="Enter your description"
             className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition"
             rows={4}
           />
           {errors.description && (
-            <p className="text-red-500 mt-1 text-sm">{errors.description.message}</p>
+            <p className="text-red-500 mt-1 text-sm">
+              {errors.description.message}
+            </p>
           )}
         </div>
 
         {/* Profession */}
         <div>
-          <label className="block font-semibold mb-2 text-gray-700">Profession</label>
+          <label className="block font-semibold mb-2 text-gray-700">
+            Profession
+          </label>
           <select
-            {...register("profession", { required: "Profession is required" })}
+            {...register("profession", {
+              required: "Profession is required",
+            })}
             className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition"
           >
             <option value="">Select a category</option>
@@ -188,25 +171,23 @@ const AddProfessionUser = () => {
             <option value="engineer">Engineer</option>
           </select>
           {errors.profession && (
-            <p className="text-red-500 mt-1 text-sm">{errors.profession.message}</p>
+            <p className="text-red-500 mt-1 text-sm">
+              {errors.profession.message}
+            </p>
           )}
         </div>
 
         {/* Submit Button */}
         <button
           type="submit"
-          disabled={isSubmitting || hasProfile} // disable if user already has a profile
-          className={`w-full py-3 rounded-2xl font-semibold text-white transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer ${
-            isSubmitting || hasProfile
+          disabled={isSubmitting}
+          className={`w-full py-3 rounded-2xl font-semibold text-white transition-all duration-300 shadow-md hover:shadow-lg ${
+            isSubmitting
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-blue-500 hover:bg-blue-600"
           }`}
         >
-          {hasProfile
-            ? "Profile Already Created"
-            : isSubmitting
-            ? "Adding Profile..."
-            : "Add Profile"}
+          {isSubmitting ? "Adding Profile..." : "Add Profile"}
         </button>
       </form>
     </div>

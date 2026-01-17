@@ -17,6 +17,7 @@ import AddEvent from '../event/AddEvent';
 import Notification from '../notification/Notification';
 import AddNotification from '../notification/AddNotification';
 import AddProfessionUser from '../professionUser/AddProfessionUser';
+import ProfessionUser from '../professionUser/ProfessionUser';
 
 
 const AppRoutes = () => {
@@ -46,6 +47,7 @@ const AppRoutes = () => {
                     <Route path="notification" element={<Notification/>}/>
                     <Route path='notification/add' element={<AddNotification/>}/>
                     <Route path='add/profession' element={<AddProfessionUser/>}/>
+                    <Route path='profession/users' element={<ProfessionUser/>}/>
                 </Route>
 
             </Routes>

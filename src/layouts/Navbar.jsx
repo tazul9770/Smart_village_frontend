@@ -47,7 +47,6 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-
           {!user ? (
             <div className="flex gap-3">
               <Link

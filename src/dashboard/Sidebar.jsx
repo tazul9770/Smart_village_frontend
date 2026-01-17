@@ -14,7 +14,8 @@ const Sidebar = () => {
     { to: "/dashboard", icon: FiBarChart2, label: "Dashboard" },
     { to: "/dashboard/events", icon: FiPackage, label: "Events" },
     { to: "/dashboard/complain", icon: FiPlusCircle, label: "Complain" },
-    { to: "/dashboard/add/profession", icon: FiPlusCircle, label: "Create Profession profile"}
+    { to: "/dashboard/add/profession", icon: FiPlusCircle, label: "Create Profession profile"},
+    { to: "/dashboard/profession/users", icon: FiBarChart2, label: "Profession User List" },
   ];
 
   const AdminItems = [
@@ -23,7 +24,8 @@ const Sidebar = () => {
     { to: "/dashboard/complain", icon: FiBarChart2, label: "Complain" },
     { to: "/dashboard/notification", icon: FiBarChart2, label: "Notification" },
     { to: "/dashboard/notification/add", icon: FiPlusCircle, label: "Add Notification" },
-    { to: "/dashboard/add/profession", icon: FiPlusCircle, label: "Create Profession profile"}
+    { to: "/dashboard/add/profession", icon: FiPlusCircle, label: "Create Profession user profile"},
+    { to: "/dashboard/profession/users", icon: FiBarChart2, label: "Profession User List" },
   ];
 
   const items = user?.is_staff ? AdminItems : UserItems;

@@ -164,7 +164,7 @@ const Notification = () => {
                             setCurrentPage((prev) => prev - 1)
                         }
                         disabled={!prevPageUrl}
-                        className="px-6 py-2 rounded-lg font-semibold bg-gray-200 hover:bg-gray-300 disabled:opacity-50 transition"
+                        className="px-6 py-2 rounded-lg font-semibold bg-gray-200 hover:bg-gray-300 disabled:opacity-50 transition cursor-pointer"
                     >
                         ← Prev
                     </button>
@@ -178,7 +178,7 @@ const Notification = () => {
                             setCurrentPage((prev) => prev + 1)
                         }
                         disabled={!nextPageUrl}
-                        className="px-6 py-2 rounded-lg font-semibold bg-gray-200 hover:bg-gray-300 disabled:opacity-50 transition"
+                        className="px-6 py-2 rounded-lg font-semibold bg-gray-200 hover:bg-gray-300 disabled:opacity-50 transition cursor-pointer"
                     >
                         Next →
                     </button>
